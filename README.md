@@ -8,9 +8,9 @@
 
 ---
 
-## ðŸ“‹ Project Overview
+## 📋 Project Overview
 
-This project demonstrates advanced statistical modelling using interaction terms to explore whether the effect of gut microbiome diversity on cognitive function depends on diet quality. Unlike additive models where predictors contribute independently, interaction models reveal synergistic or antagonistic relationships between variablesâ€”critical for understanding biological systems where factors work together.
+This project demonstrates advanced statistical modelling using interaction terms to explore whether the effect of gut microbiome diversity on cognitive function depends on diet quality. Unlike additive models where predictors contribute independently, interaction models reveal synergistic or antagonistic relationships between variables—critical for understanding biological systems where factors work together.
 
 ### Research Question
 
@@ -20,13 +20,13 @@ Or stated differently: Do gut diversity and diet quality work synergistically, s
 
 ---
 
-## ðŸ”¬ Conceptual Foundation
+## 🔬 Conceptual Foundation
 
 ### Additive vs. Interaction Effects
 
 **Additive Model (Day 7 approach):**
 ```
-Cognitive_Score = Î²â‚€ + Î²â‚(Gut_Diversity) + Î²â‚‚(Diet_Quality) + Îµ
+Cognitive_Score = β₀ + β₁(Gut_Diversity) + β₂(Diet_Quality) + ε
 ```
 - Each predictor contributes independently
 - Gut diversity helps cognition by X points *regardless* of diet quality
@@ -34,8 +34,8 @@ Cognitive_Score = Î²â‚€ + Î²â‚(Gut_Diversity) + Î²â‚‚(Diet_
 
 **Interaction Model (Day 8 approach):**
 ```
-Cognitive_Score = Î²â‚€ + Î²â‚(Gut_Diversity) + Î²â‚‚(Diet_Quality) + 
-                  Î²â‚ƒ(Diversity Ã— Diet) + Îµ
+Cognitive_Score = β₀ + β₁(Gut_Diversity) + β₂(Diet_Quality) + 
+                  β₃(Diversity × Diet) + ε
 ```
 - The benefit of gut diversity *changes* depending on diet quality
 - Predictors work together (synergy or antagonism)
@@ -50,11 +50,11 @@ Gut bacteria require dietary substrates (fibre, prebiotics) to produce beneficia
 - **High diversity + good diet:** Maximum benefit (bacteria + substrate synergy)
 - **Low diversity + good diet:** Modest benefit (substrate available but limited processing capacity)
 
-**Prediction:** The effect of diversity depends on diet qualityâ€”this is an *interaction*.
+**Prediction:** The effect of diversity depends on diet quality—this is an *interaction*.
 
 ---
 
-## ðŸ“Š Dataset Characteristics
+## 📊 Dataset Characteristics
 
 - **Sample Size:** 100 participants
 - **Variables:**
@@ -64,7 +64,7 @@ Gut bacteria require dietary substrates (fibre, prebiotics) to produce beneficia
 
 ---
 
-## ðŸ“ˆ Analysis Pipeline
+## 📈 Analysis Pipeline
 
 ### Model Comparison Strategy
 
@@ -83,14 +83,14 @@ Gut bacteria require dietary substrates (fibre, prebiotics) to produce beneficia
 
 ---
 
-## ðŸ“Š Key Findings
+## 📊 Key Findings
 
 ### Model Performance Comparison
 
-| Model | RÂ² | Adjusted RÂ² | AIC | BIC | RSS |
+| Model | R² | Adjusted R² | AIC | BIC | RSS |
 |-------|-----|------------|-----|-----|-----|
 | **Model 1 (Additive)** | 0.9987 | 0.9987 | 201.3 | 209.1 | 41.281 |
-| **Model 2 (Interaction)** | 0.9989 | 0.9988 | **189.9** âœ“ | **200.3** âœ“ | **36.103** âœ“ |
+| **Model 2 (Interaction)** | 0.9989 | 0.9988 | **189.9** ✓ | **200.3** ✓ | **36.103** ✓ |
 
 **Key Observation:** Model 2 has lower AIC/BIC (better fit) and reduced RSS (less unexplained variance).
 
@@ -116,35 +116,35 @@ Model 2: Cognitive_Score ~ Gut_Diversity + Diet_Quality +
 
 ### Model 2 Coefficients
 
-| Term | Coefficient (Î²) | SE | t-statistic | p-value |
+| Term | Coefficient (β) | SE | t-statistic | p-value |
 |------|----------------|-----|-------------|---------|
 | Intercept | 7.864 | 0.696 | 11.29 | <0.001 |
 | Gut Diversity | **0.587** | 0.031 | 18.75 | <0.001 |
 | Diet Quality | **0.475** | 0.026 | 18.37 | <0.001 |
-| **Diversity Ã— Diet** | **-0.0008** | 0.0002 | **-3.71** | **0.000347** |
+| **Diversity × Diet** | **-0.0008** | 0.0002 | **-3.71** | **0.000347** |
 
 ### Interpreting the Negative Interaction
 
-**Coefficient:** Î²â‚ƒ = -0.0008
+**Coefficient:** β₃ = -0.0008
 
 **What does this mean?**
 
 The **negative** interaction indicates **diminishing returns**, not antagonism:
 
 **At Low Diet Quality (score = 30):**
-- Gut diversity effect = 0.587 + (-0.0008 Ã— 30) = 0.563 per unit
-- Increasing diversity by 10 units â†’ +5.63 points cognitive score
+- Gut diversity effect = 0.587 + (-0.0008 × 30) = 0.563 per unit
+- Increasing diversity by 10 units → +5.63 points cognitive score
 
 **At High Diet Quality (score = 90):**
-- Gut diversity effect = 0.587 + (-0.0008 Ã— 90) = 0.515 per unit
-- Increasing diversity by 10 units â†’ +5.15 points cognitive score
+- Gut diversity effect = 0.587 + (-0.0008 × 90) = 0.515 per unit
+- Increasing diversity by 10 units → +5.15 points cognitive score
 
 **Biological Interpretation:**
-As diet quality approaches optimal levels, further increases in gut diversity yield diminishing returns due to ceiling effectsâ€”cognitive function has upper limits, and optimal diet already maximises bacterial metabolite production.
+As diet quality approaches optimal levels, further increases in gut diversity yield diminishing returns due to ceiling effects—cognitive function has upper limits, and optimal diet already maximises bacterial metabolite production.
 
 ---
 
-## ðŸ“ˆ Visual Evidence: Stratified Regression Plot
+## 📈 Visual Evidence: Stratified Regression Plot
 
 Created stratified regression showing gut diversity effect across three diet quality groups:
 
@@ -154,11 +154,11 @@ Created stratified regression showing gut diversity effect across three diet qua
 | Medium diet (50-75) | Moderate slope | Intermediate benefit |
 | **High diet (75-95)** | **Flattest slope** | Approaching ceiling; diminishing returns |
 
-**Visual Pattern:** Non-parallel slopes confirm interaction effectâ€”the diversity-cognition relationship differs across diet quality levels.
+**Visual Pattern:** Non-parallel slopes confirm interaction effect—the diversity-cognition relationship differs across diet quality levels.
 
 ---
 
-## ðŸ”§ Technical Considerations
+## 🔧 Technical Considerations
 
 ### Multicollinearity in Interaction Terms
 
@@ -170,8 +170,8 @@ strong multicollinearity or other numerical problems.
 
 **Why This Occurs:**
 Interaction terms are **mathematically constructed** from parent variables:
-- `Gut_Diversity Ã— Diet_Quality` is inherently correlated with both predictors
-- High diversity Ã— high diet = very large product values
+- `Gut_Diversity × Diet_Quality` is inherently correlated with both predictors
+- High diversity × high diet = very large product values
 - This creates artificial correlation
 
 **Solution: Variable Centering**
@@ -187,39 +187,39 @@ model_centered <- lm(Cognitive_Score ~ Diversity_centered + Diet_centered +
 ```
 
 **Results After Centering:**
-- âœ… Interaction coefficient unchanged: Î² = -0.0008 vs -0.0007856
-- âœ… Interaction p-value unchanged: p = 0.000347
-- âœ… RÂ² unchanged: 0.9989
-- âœ… Multicollinearity warning eliminated or greatly reduced
+- ✅ Interaction coefficient unchanged: β = -0.0008 vs -0.0007856
+- ✅ Interaction p-value unchanged: p = 0.000347
+- ✅ R² unchanged: 0.9989
+- ✅ Multicollinearity warning eliminated or greatly reduced
 
-**Key Insight:** Centering doesn't change the **meaning** of resultsâ€”it only reorganises where we measure from (mean vs. zero), resolving numerical issues without affecting statistical inference.
+**Key Insight:** Centering doesn't change the **meaning** of results—it only reorganises where we measure from (mean vs. zero), resolving numerical issues without affecting statistical inference.
 
 ---
 
-## ðŸ§  Clinical Implications
+## 🧠 Clinical Implications
 
 ### Personalised Intervention Design
 
 **Scenario 1: Individual with Low Diversity + Poor Diet**
 - **Priority:** Improve diversity first (probiotics/prebiotics)
 - **Rationale:** Diet improvement alone has limited benefit without bacteria to process nutrients
-- **Strategy:** Microbial intervention â†’ dietary optimisation
+- **Strategy:** Microbial intervention → dietary optimisation
 
 **Scenario 2: Individual with High Diversity + Poor Diet**
 - **Priority:** Improve diet quality
 - **Rationale:** Existing bacterial diversity can immediately utilise better nutrients
-- **Strategy:** Dietary intervention â†’ maximise existing microbial capacity
+- **Strategy:** Dietary intervention → maximise existing microbial capacity
 
 **Scenario 3: Individual with Low Diversity + Good Diet**
 - **Priority:** Still improve diversity
 - **Rationale:** Substrate available but limited processing capacity
 - **Expected Outcome:** Modest gains until diversity increases
 
-**Key Insight:** Interaction effects inform *sequential* intervention strategiesâ€”not all individuals benefit equally from the same intervention.
+**Key Insight:** Interaction effects inform *sequential* intervention strategies—not all individuals benefit equally from the same intervention.
 
 ---
 
-## ðŸ’» Technologies Used
+## 💻 Technologies Used
 
 **R Programming:**
 - `lm()` - Linear regression with interaction terms
@@ -237,18 +237,18 @@ model_centered <- lm(Cognitive_Score ~ Diversity_centered + Diet_centered +
 
 ---
 
-## ðŸ“ Repository Structure
+## 📁 Repository Structure
 
 ```
 gut-brain-interaction-effects/
-â”œâ”€â”€ README.md                              # This file
-â”œâ”€â”€ gut_brain_interaction_day8.csv        # Dataset (100 participants)
-â””â”€â”€ interaction_effects_analysis.R        # R analysis script (centered & uncentered models)
+├── README.md                              # This file
+├── gut_brain_interaction_day8.csv        # Dataset (100 participants)
+└── interaction_effects_analysis.R        # R analysis script (centered & uncentered models)
 ```
 
 ---
 
-## ðŸš€ How to Run
+## 🚀 How to Run
 
 ### Requirements
 - R version 4.0+
@@ -270,54 +270,54 @@ source("interaction_effects_analysis.R")
 
 ---
 
-## ðŸ“Š Decision Framework: When to Include Interactions
+## 📊 Decision Framework: When to Include Interactions
 
 ### Include Interaction Terms When:
 
-âœ… **Theoretical basis:** Biological/mechanistic reason to expect synergy  
-âœ… **Significant F-test:** ANOVA shows interaction improves fit (p < 0.05)  
-âœ… **Lower AIC/BIC:** Information criteria favour interaction model  
-âœ… **Visual evidence:** Stratified plots show non-parallel slopes  
-âœ… **Practical importance:** Interaction coefficient large enough to matter  
+✅ **Theoretical basis:** Biological/mechanistic reason to expect synergy  
+✅ **Significant F-test:** ANOVA shows interaction improves fit (p < 0.05)  
+✅ **Lower AIC/BIC:** Information criteria favour interaction model  
+✅ **Visual evidence:** Stratified plots show non-parallel slopes  
+✅ **Practical importance:** Interaction coefficient large enough to matter  
 
 ### Don't Include Interaction Terms When:
 
-âŒ **No theoretical justification:** "Fishing expedition" for significant effects  
-âŒ **Non-significant F-test:** Interaction doesn't improve fit (p > 0.05)  
-âŒ **Higher AIC/BIC:** Added complexity not justified by fit improvement  
-âŒ **Parallel slopes:** Visual inspection suggests additive effects  
-âŒ **Trivial magnitude:** Interaction coefficient too small for practical relevance  
+❌ **No theoretical justification:** "Fishing expedition" for significant effects  
+❌ **Non-significant F-test:** Interaction doesn't improve fit (p > 0.05)  
+❌ **Higher AIC/BIC:** Added complexity not justified by fit improvement  
+❌ **Parallel slopes:** Visual inspection suggests additive effects  
+❌ **Trivial magnitude:** Interaction coefficient too small for practical relevance  
 
 ---
 
-## ðŸŽ¯ Skills Demonstrated
+## 🎯 Skills Demonstrated
 
 This project showcases:
 
-âœ… **Interaction Effects Modelling:** Understanding when and how predictors work synergistically  
-âœ… **Nested Model Comparison:** ANOVA F-tests, AIC/BIC criteria  
-âœ… **Variable Centering:** Resolving multicollinearity in interaction terms  
-âœ… **Effect Size Interpretation:** Translating interaction coefficients to practical scenarios  
-âœ… **Visual Analysis:** Stratified regression plots showing non-parallel slopes  
-âœ… **Biological Translation:** Converting statistical interactions to mechanistic understanding  
-âœ… **Clinical Application:** Personalised intervention design based on baseline characteristics  
+✅ **Interaction Effects Modelling:** Understanding when and how predictors work synergistically  
+✅ **Nested Model Comparison:** ANOVA F-tests, AIC/BIC criteria  
+✅ **Variable Centering:** Resolving multicollinearity in interaction terms  
+✅ **Effect Size Interpretation:** Translating interaction coefficients to practical scenarios  
+✅ **Visual Analysis:** Stratified regression plots showing non-parallel slopes  
+✅ **Biological Translation:** Converting statistical interactions to mechanistic understanding  
+✅ **Clinical Application:** Personalised intervention design based on baseline characteristics  
 
 ---
 
-## ðŸ”— Related Projects
+## 🔗 Related Projects
 
 **This analysis builds on:**
 - [Multiple Regression Analysis](https://github.com/farid-bioinfo/multiple-regression-asd-anxiety) - Independent predictor effects
 - [Statistical Hypothesis Testing](https://github.com/farid-bioinfo/diabetes-bp-analysis) - Foundational inference
 
 **This analysis leads to:**
-- Three-way interactions (e.g., diversity Ã— diet Ã— inflammation)
+- Three-way interactions (e.g., diversity × diet × inflammation)
 - Mediation analysis (does diet mediate diversity effects?)
 - Longitudinal interaction models (how do interactions change over time?)
 
 ---
 
-## ðŸ“§ Contact
+## 📧 Contact
 
 **GitHub:** [farid-bioinfo](https://github.com/farid-bioinfo)  
 **LinkedIn:** [linkedin.com/in/farid-hakimi-32525a45](https://www.linkedin.com/in/farid-hakimi-32525a45)  
@@ -325,7 +325,7 @@ This project showcases:
 
 ---
 
-## ðŸŽ“ Academic Connection
+## 🎓 Academic Connection
 
 This analysis applies advanced regression techniques from **CEMP MSc Biostatistics & Bioinformatics** (Grade: 9.43/10):
 - Module 3: Biostatistics & R II (Grade: 9.59/10)
@@ -336,4 +336,3 @@ Demonstrates proficiency in complex statistical modelling relevant to mechanisti
 ---
 
 *Part of comprehensive portfolio demonstrating progression from basic hypothesis testing through advanced multivariable modelling with interaction effects.*
-
